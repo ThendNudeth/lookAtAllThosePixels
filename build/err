@@ -1,0 +1,34 @@
+cc1: warning: command line option ‘-std=gnu++11’ is valid for C++/ObjC++ but not for C
+cc1: warning: command line option ‘-fpermissive’ is valid for C++/ObjC++ but not for C
+cc1: warning: command line option ‘-std=gnu++11’ is valid for C++/ObjC++ but not for C
+cc1: warning: command line option ‘-fpermissive’ is valid for C++/ObjC++ but not for C
+src/foo.c: In function ‘main’:
+src/foo.c:24:12: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint8_t *’ {aka ‘unsigned char *’} [-Wformat=]
+   24 |   printf("%d", im.image);
+      |           ~^   ~~~~~~~~
+      |            |     |
+      |            int   uint8_t * {aka unsigned char *}
+      |           %hhn
+src/foo.c:16:14: warning: unused parameter ‘argc’ [-Wunused-parameter]
+   16 | int main(int argc, char** argv) {
+      |          ~~~~^~~~
+src/foo.c:16:27: warning: unused parameter ‘argv’ [-Wunused-parameter]
+   16 | int main(int argc, char** argv) {
+      |                    ~~~~~~~^~~~
+src/foo.c: In function ‘drawLine’:
+src/foo.c:29:24: warning: unused parameter ‘x’ [-Wunused-parameter]
+   29 | void drawLine(uint32_t x, uint32_t y, uint8_t colour[], int width) {
+      |               ~~~~~~~~~^
+src/foo.c:29:36: warning: unused parameter ‘y’ [-Wunused-parameter]
+   29 | void drawLine(uint32_t x, uint32_t y, uint8_t colour[], int width) {
+      |                           ~~~~~~~~~^
+src/foo.c:29:47: warning: unused parameter ‘colour’ [-Wunused-parameter]
+   29 | void drawLine(uint32_t x, uint32_t y, uint8_t colour[], int width) {
+      |                                       ~~~~~~~~^~~~~~~~
+src/foo.c:29:61: warning: unused parameter ‘width’ [-Wunused-parameter]
+   29 | void drawLine(uint32_t x, uint32_t y, uint8_t colour[], int width) {
+      |                                                         ~~~~^~~~~
+cc1: warning: command line option ‘-std=gnu++11’ is valid for C++/ObjC++ but not for C
+cc1: warning: command line option ‘-fpermissive’ is valid for C++/ObjC++ but not for C
+Assembler messages:
+Fatal error: can't create build/imageProcessor/imageProcessor.out: No such file or directory
