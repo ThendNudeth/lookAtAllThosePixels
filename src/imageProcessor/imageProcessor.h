@@ -14,4 +14,5 @@ struct Image {
 
 int valueAt(int x, int y, int ch);
 struct Image readImage(char address[]);
+void displayImage(struct Image image);
 #endif //FRAMEBUFFERS_IMAGEPROCESSOR_H

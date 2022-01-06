@@ -8,14 +8,14 @@
 #include "stb_image.h"
 
 #include "imageProcessor.h"
+#include "../framebuffer/framebuffer.h"
 
 struct Image readImage(char address[]) {
-  printf("hello");
   int width, height, bpp;
   struct Image image;
 
-  printf("%s", address);
-  uint8_t* rgb_image = stbi_load("e71.jpg", &width, &height, &bpp, 3);
+  printf("%s\n", address);
+  uint8_t* rgb_image = stbi_load(address, &width, &height, &bpp, 3);
   printf("pixel 0.0: %d\n",rgb_image[0]);
 //  printf("pixel 0.1: %d\n",rgb_image[1]);
 //  printf("pixel 0.2: %d\n",rgb_image[2]);
@@ -32,10 +32,35 @@ struct Image readImage(char address[]) {
 //    }
 //  }
 
-//  image.image = rgb_image;
-//  image.height = height;
-//  image.width = width;
-//  image.bpp = bpp;
+  image.image = rgb_image;
+  image.height = height;
+  image.width = width;
+  image.bpp = bpp;
 
   return image;
+}
+
+void displayImage(struct Image image) {
+  int i;
+
+  if (image.bpp==3) {
+    i = 0;
+    for (uint32_t y = 0; y < image.height; y++) {
+      for (uint32_t x = 0; x < image.width; x++) {
+        setPixel(x, y, image.image[i], image.image[i+1], image.image[i+2], 0xFF);
+        i+=3;
+      }
+    }
+  } else if (image.bpp==4) {
+    i = 0;
+    for (uint32_t y = 0; y < image.height; y++) {
+      for (uint32_t x = 0; x < image.width; x++) {
+        setPixel(x, y, image.image[i], image.image[i+1], image.image[i+2], image.image[i+3]);
+        i+=4;
+      }
+    }
+  } else {
+    perror("Unsupported number of channels");
+  }
+
 }

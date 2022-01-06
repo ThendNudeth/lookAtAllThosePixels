@@ -12,8 +12,13 @@ int main(int argc, char** argv) {
 
   accessFramebuffer();
 
-  struct Image image = readImage("../../resources/e71");
-////  stbi_free(image.image);
+  struct Image image = readImage("resources/e71.jpg");
+
+  printf("%d\n", image.image[0]);
+
+//  displayImage(image);
+
+  stbi_image_free(image.image);
 
   return 0;
 }

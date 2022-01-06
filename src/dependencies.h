@@ -14,4 +14,6 @@
 #include <inttypes.h>
 #include <errno.h>
 
+#include "imageProcessor/stb_image.h"
+
 #endif //FRAMEBUFFERS_DEPENDENCIES_H
