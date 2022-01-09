@@ -53,10 +53,56 @@ void accessFramebuffer() {
   }
 
   printf("framebuffer successfully accessed.\n");
-//  uint32_t x = 0;
-//  uint32_t y = 400;
-//  for (x = 0; x < 800; x++) {
-//    setPixel(x, y, 0xFF, 0xFF, 0x00, 0xFF);
-//  }
+}
+
+void drawLine(uint32_t X1[], uint32_t X2[]) {
+  uint32_t start, end;
+  double x0, m;
+  
+  if (X1[0]==X2[0]) {
+    printf("Vertical line.");
+
+    if (X1[1]<X2[1]) {
+      start = X1[1];
+      end = X2[1];
+    } else {
+      start = X2[1];
+      end = X1[1];
+    }
+
+    for (uint32_t y = start; y < end; ++y) {
+      setPixel(X1[0], y, 0xFF, 0xFF, 0xFF, 0xFF);
+    }
+
+    return;
+  }
+
+  m = ((double) (X2[1] - X1[1])) /
+      ((double) (X2[0] - X1[0]));
+
+  x0 = ((double) X1[1]) - m * ((double) X1[0]);
+
+  if (X1[0]<X2[0]) {
+    start = X1[0];
+    end = X2[0];
+  } else {
+    start = X2[0];
+    end = X1[0];
+  }
+
+  for (uint32_t x = start; x < end; ++x) {
+
+//    printf("%d: %f\n", x, m*x+x0);
+    uint32_t y = round(m*x+x0);
+//    printf("%d: %d\n", x, y);
+    setPixel(x, y, 0xFF, 0xFF, 0xFF, 0xFF);
+  }
+
+}
+
+uint32_t getRawPixel(uint32_t x, uint32_t y) {
+  uint32_t location = x * (vinfo.bits_per_pixel / 8) +
+                      y * finfo.line_length;
+  return *((uint32_t*) (fbp + location));
 }
 

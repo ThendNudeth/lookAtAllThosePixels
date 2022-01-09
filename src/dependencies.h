@@ -13,6 +13,7 @@
 #include <sys/mman.h>
 #include <inttypes.h>
 #include <errno.h>
+#include <math.h>
 
 #include "imageProcessor/stb_image.h"
 

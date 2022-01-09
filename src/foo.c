@@ -12,13 +12,15 @@ int main(int argc, char** argv) {
 
   accessFramebuffer();
 
-  struct Image image = readImage("resources/e71.jpg");
+  Image* image = readImage("resources/e71.jpg");
 
-  printf("%d\n", image.image[0]);
+  displayImage(image);
 
-//  displayImage(image);
+  freeImage(image);
 
-  stbi_image_free(image.image);
+//  uint32_t X1[] = {0,0};
+//  uint32_t X2[] = {1500, 750};
+//  drawLine(X1, X2);
 
   return 0;
 }

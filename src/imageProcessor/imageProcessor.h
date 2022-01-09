@@ -5,14 +5,14 @@
 #ifndef FRAMEBUFFERS_IMAGEPROCESSOR_H
 #define FRAMEBUFFERS_IMAGEPROCESSOR_H
 
-struct Image {
-    uint8_t* image;
+typedef struct {
+    uint8_t *** image;
     int height;
     int width;
     int bpp;
-};
+}Image;
 
-int valueAt(int x, int y, int ch);
-struct Image readImage(char address[]);
-void displayImage(struct Image image);
+Image* readImage(char address[]);
+void displayImage(Image* image);
+void freeImage(Image* image);
 #endif //FRAMEBUFFERS_IMAGEPROCESSOR_H
