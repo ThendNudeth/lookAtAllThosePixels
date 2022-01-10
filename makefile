@@ -35,5 +35,5 @@
 # ----------------------------------------------------------------
 
 app: src/*.c src/imageProcessor/*.c src/framebuffer/*.c
-	gcc -g src/*.c src/imageProcessor/imageProcessor.c src/framebuffer/framebuffer.c -lm -o bar
+	gcc -g src/*.c src/imageProcessor/imageProcessor.c src/framebuffer/framebuffer.c -lm -lncurses -o bar
 

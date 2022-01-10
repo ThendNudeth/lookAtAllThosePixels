@@ -14,7 +14,9 @@
 #include <inttypes.h>
 #include <errno.h>
 #include <math.h>
+#include <unistd.h>
 
 #include "imageProcessor/stb_image.h"
+#include "framebuffer/framebuffer.h"
 
 #endif //FRAMEBUFFERS_DEPENDENCIES_H

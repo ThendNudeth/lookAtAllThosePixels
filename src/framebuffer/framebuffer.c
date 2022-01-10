@@ -4,7 +4,6 @@
 
 
 #include "../dependencies.h"
-#include "framebuffer.h"
 
 struct fb_fix_screeninfo finfo;
 struct fb_var_screeninfo vinfo;

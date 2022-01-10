@@ -1,0 +1,6 @@
+build/*
+bar
+valgrind.prev
+valgrind.txt
+logs/*
+*.gch

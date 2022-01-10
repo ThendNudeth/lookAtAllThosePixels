@@ -8,7 +8,6 @@
 #include "stb_image.h"
 
 #include "imageProcessor.h"
-#include "../framebuffer/framebuffer.h"
 
 Image* readImage(char address[]) {
   int width, height, bpp;
