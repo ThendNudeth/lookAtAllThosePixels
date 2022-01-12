@@ -11,6 +11,9 @@ On my (ubuntu) machine I use:
 foo@bar:~$ sudo service gdm stop
 ```
 
+This will result in a blank screen. Now we need to start a new shell.
+Again, on my machine I use <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>F2</kbd>
+
 Now navigate to the root project directory and compile the program with:
 ```console
 foo@bar:~\lookAtAllThosePixels$ make
