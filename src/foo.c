@@ -8,59 +8,81 @@
 #include "imageProcessor/imageProcessor.h"
 
 int main(int argc, char** argv) {
-  int width, height, bpp, opt;
+  int width, height, x, y;
 
   initscr();
 
   WINDOW * win = newwin(25, 80, 0, 0);
-  refresh();
-
   box(win, 0, 0);
 //  wborder(win, 0,0,0,0,0)
-  mvwprintw(win, 1, 1, "Hello world!");
+
+//  mvwprintw(win, 1, 1, "Hello world!");
+  mvwprintw(win, 1, 1, "What would you like to do?");
+  refresh();
   wrefresh(win);
 
+  keypad(win, true);
 
-  getch();
+  const int NUM_OPTIONS = 4;
+  char * options[] = {"show a picture",
+                       "draw a line",
+                       "draw a rectangle",
+                       "draw"};
+  int choice;
+  int highlight = 0;
+
+  while (1) {
+    for (int i = 0; i < NUM_OPTIONS; ++i) {
+      if (i == highlight) {
+        wattron(win, A_REVERSE);
+      }
+      mvwprintw(win, i+3, 1, options[i]);
+      wattroff(win, A_REVERSE);
+    }
+    choice = wgetch(win);
+
+    switch (choice) {
+      case KEY_UP:
+        highlight--;
+        if (highlight == -1) {
+          highlight = 0;
+        }
+        break;
+      case KEY_DOWN:
+        highlight++;
+        if (highlight == NUM_OPTIONS) {
+          highlight = NUM_OPTIONS-1;
+        }
+      default:
+        break;
+    }
+    if (choice == 10) break;
+  }
+
+//  getbegyx(win, y, x);
+//  getmaxyx(win, height, width);
+//  mvwprintw(win, 1, 1, "%d %d", height, width);
+//  wrefresh(win);
+//  keypad()
 
   endwin();
 
-//  while ((opt = getopt(argc, argv, ":if:lrx")) != -1) {
-//    switch(opt) {
-//      case 'i':
-//      case 'l':
-//      case 'r':
-//        printf("option: %c\n", opt);
-//        break;
-//      case 'f':
-//        printf("filename: %s\n", optarg);
-//        break;
-//      case ':':
-//        printf("option needs a value\n");
-//        break;
-//      case '?':
-//        printf("unknown option: %c\n", optopt);
-//        break;
-//    }
-//  }
-//
-//  for(; optind < argc; optind++) {
-//    printf("extra arguments: %s\n", argv[optind]);
-//  }
+  if (highlight==0) {
+    accessFramebuffer();
 
-//  accessFramebuffer();
+    Image* image = readImage("resources/e71.jpg");
 
-//  Image* image = readImage("resources/e71.jpg");
+    displayImage(image);
 
-//  displayImage(image);
+    freeImage(image);
+  }
 
-//  freeImage(image);
 
 //  uint32_t X1[] = {0,0};
 //  uint32_t X2[] = {1500, 750};
 //  drawLine(X1, X2);
 
-
+  exit_curses(0);
   return 0;
 }
 
