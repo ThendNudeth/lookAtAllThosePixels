@@ -33,7 +33,8 @@
 # ----------------------------------------------------------------
 # Rules
 # ----------------------------------------------------------------
-
+mac: src/SDL/makeAWindow/*.c
+	gcc -lstdc++ $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c -o main
 app: src/*.c src/imageProcessor/*.c src/framebuffer/*.c
 	gcc -g src/*.c src/imageProcessor/imageProcessor.c src/framebuffer/framebuffer.c -lm -lncurses -o bar
 
