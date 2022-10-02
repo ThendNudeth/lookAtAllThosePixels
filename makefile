@@ -33,8 +33,18 @@
 # ----------------------------------------------------------------
 # Rules
 # ----------------------------------------------------------------
-mac: src/SDL/makeAWindow/*.c
-	gcc -lstdc++ $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c -o main
+mac: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c
+	gcc $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c src/SDL/Universe/*.c -o main
+naive: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c
+	gcc $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c -o main -D NAIVE
+naive2: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c
+	gcc $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c -o main -D NAIVE2
+# mac: src/SDL/makeAWindow/*.c
+# 	gcc -lstdc++ $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c -o main -D HEAP_COLOURS
+
 app: src/*.c src/imageProcessor/*.c src/framebuffer/*.c
 	gcc -g src/*.c src/imageProcessor/imageProcessor.c src/framebuffer/framebuffer.c -lm -lncurses -o bar
+
+clean: 
+	rm 
 
