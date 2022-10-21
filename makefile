@@ -45,6 +45,8 @@ naive2: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c
 app: src/*.c src/imageProcessor/*.c src/framebuffer/*.c
 	gcc -g src/*.c src/imageProcessor/imageProcessor.c src/framebuffer/framebuffer.c -lm -lncurses -o bar
 
+testla: src/SDL/Linear_Algebra/*.c src/SDL/Dependencies/*.c 
+	gcc src/SDL/Linear_Algebra/*.c src/SDL/Dependencies/*.c -o main
 clean: 
 	rm 
 

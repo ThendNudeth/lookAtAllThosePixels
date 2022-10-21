@@ -371,6 +371,7 @@ void BresLine2(int x0, int y0, int x1, int y1, Colour col) {
   }
   
 }
+
 void drawLineCart(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, Colour col) {
     #ifdef NAIVE
     naive(x0, y0, x1, y1, col);
@@ -380,4 +381,8 @@ void drawLineCart(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, Colour col
     BresLine(x0, y0, x1, y1, col);
     // printf("bres");
     #endif
+}
+
+void drawDot(uint32_t x, uint32_t y, Colour col) {
+    setPixel(x, y, col.r, col.g, col.b, col.a);
 }

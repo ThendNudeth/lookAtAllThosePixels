@@ -1,7 +1,7 @@
 // This work (SDLblit.cpp, by Cory Bloyd) is free of known copyright restrictions.
 // https://creativecommons.org/publicdomain/zero/1.0/
 
-#include "draw.h"
+// #include "draw.h"
 #include "../Universe/system.h"
 // #define HEAP_COLOURS 0
 // ^ Use -D HEAP_COLOURS to run with pixel values stored on the heap instead of stack.
@@ -28,24 +28,14 @@ void shifty() {
     printf("%d\n", (0>>1));
 }
 
-void makeAUniverse() {
-    System* s = newSystem();
+// void makeAUniverse() {
+//     System* s = newSystem();
 
-    printf("%d\n", s->p_count);
-    addParticleToSystem(s, newParticle());
-    printf("%d\n", s->p_count);
-    addParticleToSystem(s, newParticle());
-    printf("%d\n", s->p_count);
+//     // addParticleToSystem(s, newParticle());
 
-    destroySystem(s);
+//     destroySystem(s);
+// }
 
-    printf("%lu\n", sizeof(Particle));
-    printf("%lu\n", sizeof(System));
-    printf("%lu\n", sizeof(int));
-    printf("%lu\n", sizeof(uint32_t));
-    printf("%lu\n", sizeof(s));
-
-}
 
 int openWindowAndRenderStuff(int argc, char *argv[]) {
     
@@ -69,6 +59,10 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
         SCREEN_RECT.w = strtol(argv[1], &p, 10);
         SCREEN_RECT.h = strtol(argv[2], &p, 10);
     }
+
+    System* s = newSystem(1,SCREEN_RECT.w-1, 1, SCREEN_RECT.h-1);
+    addParticleToSystem(s, newParticle(1, 100, 110, 0,0,0,0));
+    addParticleToSystem(s, newParticle(1, 100, 100, 0,0,0,0));
     
     SDL_Window   *window   = SDL_CreateWindow("SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_RECT.w, SCREEN_RECT.h, SDL_WINDOW_SHOWN);
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -76,7 +70,7 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
     
     // 2. Start frame rendering loop
     uint32_t tickDeltas;
-    for (int frame = 0; /*frame < 1*/; ++frame) {
+    for (int frame = 0; frame < 3; ++frame) {
         SDL_Event event;
 
         if (SDL_PollEvent(&event) != 0) {
@@ -97,6 +91,7 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
                 fprintf(frameTsLog,"\n");
                 fprintf(frameTsLog, "avg tpf: %d, avg fps: %d\n", (tickDeltas/frame), 1000/(tickDeltas/frame));
                 fclose(frameTsLog);
+                destroySystem(s);
                 return 0;
             }
         }
@@ -108,15 +103,10 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
         uint32_t startTicks = SDL_GetTicks();
 
         // 2.2 Write to texture
-        drawSomething(frame);
-        // drawDot();
-
-        // for (double i = 0; i < 2; i=i+0.001)
-        // {
-        //     drawLinePolar(400,0.643501109,200, i*M_PI, newColour(255,255,255,255));
-        // }
-        BresCircle(320, 240, 100, newColour(255,255,255,255));
-        // drawLineCart(320, 240, 320, 240, newColour(255, 255, 255, 255));
+        // drawSomething(frame);
+        drawSystem(s);
+        updateSystemState(s);
+        // BresCircle(320, 240, 100, newColour(255,255,255,255));
 
         uint32_t endTicks = SDL_GetTicks();
 
@@ -146,11 +136,11 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
 int main(int argc, char *argv[]) {
 
     // shifty();
-    makeAUniverse();
+    // makeAUniverse();
 
     // iAmaLeak();
 
-    // return openWindowAndRenderStuff(argc, argv);
+    return openWindowAndRenderStuff(argc, argv);
 
     return 0;
 
