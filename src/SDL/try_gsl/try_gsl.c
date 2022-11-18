@@ -1,5 +1,17 @@
-#include "../Dependencies/dependencies.h"
-#include "linear_algebra.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+#include <gsl/gsl_sf_bessel.h>
+#include <gsl/gsl_vector.h>
+#include <gsl/gsl_matrix.h>
+
+/*
+    Successfully compiled with:
+    gcc -Wall -I/opt/homebrew/include -c try_gsl.c
+    gcc -L/opt/homebrew/lib try_gsl.o -lgsl -lgslcblas -lm
+*/
 
 char* vectorToString(gsl_vector* v) {
     
@@ -67,9 +79,9 @@ void printMatrix(gsl_matrix* m) {
 
 int main (void)
 {
-//   double x = 5.0;
-//   double y = gsl_sf_bessel_J0 (x);
-//   printf ("J0(%g) = %.18e\n", x, y);
+  double x = 5.0;
+  double y = gsl_sf_bessel_J0 (x);
+  printf ("J0(%g) = %.18e\n", x, y);
 
   gsl_vector* v = gsl_vector_alloc(2);
 

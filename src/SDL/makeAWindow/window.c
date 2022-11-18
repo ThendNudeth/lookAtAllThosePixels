@@ -61,8 +61,8 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
     }
 
     System* s = newSystem(1,SCREEN_RECT.w-1, 1, SCREEN_RECT.h-1);
-    addParticleToSystem(s, newParticle(1, 100, 110, 0,0,0,0));
-    addParticleToSystem(s, newParticle(1, 100, 100, 0,0,0,0));
+    addParticleToSystem(s, new2dParticle(2, SCREEN_RECT.w/2, SCREEN_RECT.h/2, 0, 0.2, 0, 0));
+    addParticleToSystem(s, new2dParticle(2, SCREEN_RECT.w/2+40, SCREEN_RECT.h/2, 0, -0.2, 0, 0));
     
     SDL_Window   *window   = SDL_CreateWindow("SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_RECT.w, SCREEN_RECT.h, SDL_WINDOW_SHOWN);
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -70,7 +70,7 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
     
     // 2. Start frame rendering loop
     uint32_t tickDeltas;
-    for (int frame = 0; frame < 3; ++frame) {
+    for (int frame = 0; /*frame < 3*/; ++frame) {
         SDL_Event event;
 
         if (SDL_PollEvent(&event) != 0) {
@@ -106,7 +106,7 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
         // drawSomething(frame);
         drawSystem(s);
         updateSystemState(s);
-        // BresCircle(320, 240, 100, newColour(255,255,255,255));
+        // BresCircle(320, 240, 100, newColour(255,255,255,255), 1);
 
         uint32_t endTicks = SDL_GetTicks();
 

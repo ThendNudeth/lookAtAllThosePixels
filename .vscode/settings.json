@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "framebuffer.h": "c",
-        "system.h": "c"
+        "system.h": "c",
+        "dependencies.h": "c"
     }
 }

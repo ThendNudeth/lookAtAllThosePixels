@@ -33,8 +33,8 @@
 # ----------------------------------------------------------------
 # Rules
 # ----------------------------------------------------------------
-mac: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c
-	gcc $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c src/SDL/Universe/*.c -o main
+mac: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c src/SDL/Dependencies/*.c
+	gcc $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c src/SDL/Universe/*.c src/SDL/Dependencies/*.c -I/opt/homebrew/include -L/opt/homebrew/lib -lgsl -lgslcblas -lm -o main
 naive: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c
 	gcc $$(sdl2-config --cflags --libs) src/SDL/makeAWindow/*.c -o main -D NAIVE
 naive2: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c
@@ -45,8 +45,12 @@ naive2: src/SDL/makeAWindow/*.c src/SDL/Universe/*.c
 app: src/*.c src/imageProcessor/*.c src/framebuffer/*.c
 	gcc -g src/*.c src/imageProcessor/imageProcessor.c src/framebuffer/framebuffer.c -lm -lncurses -o bar
 
-testla: src/SDL/Linear_Algebra/*.c src/SDL/Dependencies/*.c 
-	gcc src/SDL/Linear_Algebra/*.c src/SDL/Dependencies/*.c -o main
+testla: src/SDL/Linear_Algebra/*.c src/SDL/Dependencies/*.c
+	gcc -I/opt/homebrew/include -L/opt/homebrew/lib src/SDL/Linear_Algebra/*.c src/SDL/Dependencies/*.c -lgsl -lgslcblas -lm -o main
+
+gsl: src/SDL/try_gsl/*.c
+	gcc -I/opt/homebrew/include -L/opt/homebrew/lib src/SDL/try_gsl/*.c -lgsl -lgslcblas -lm -o main
+
 clean: 
 	rm 
 

@@ -37,6 +37,10 @@ Colour newColour(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
   return col;
 }
 
+Colour newRandomColour() {
+  return newColour(rand() % 255, rand() % 255, rand() % 255, 255);
+}
+
 uint32_t argb(uint8_t a, uint8_t r, uint8_t g, uint8_t b) { return ((uint32_t)a << 24) | (r << 16) | (g << 8) | (b << 0); }
 
 

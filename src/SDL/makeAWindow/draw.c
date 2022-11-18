@@ -296,7 +296,19 @@ void BresLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, Colour col) {
   }
 }
 
-void setCirclePixel(uint32_t xc, uint32_t yc, uint32_t x, uint32_t y, Colour col) {
+void setCirclePixel(uint32_t xc, uint32_t yc, uint32_t x, uint32_t y, Colour col, int fill) {
+  if (fill) {
+    drawLineCart(xc-x, yc-y, xc+x, yc-y, newColour(col.r, col.g, col.b, col.a));
+    drawLineCart(xc-y, yc-x, xc+y, yc-x, newColour(col.r, col.g, col.b, col.a));
+    drawLineCart(xc-y, yc+x, xc+y, yc+x, newColour(col.r, col.g, col.b, col.a));
+    drawLineCart(xc-x, yc+y, xc+x, yc+y, newColour(col.r, col.g, col.b, col.a));
+
+    // gfx.line(centerX - x, centerY - y, centerX + x, centerY - y, c);
+    // gfx.line(centerX - y, centerY - x, centerX + y, centerY - x, c);
+    // gfx.line(centerX - y, centerY + x, centerX + y, centerY + x, c);
+    // gfx.line(centerX - x, centerY + y, centerX + x, centerY + y, c);
+
+  } else {
   setPixel(xc+x, yc+y, col.r, col.g, col.b, col.a);
   setPixel(xc-x, yc+y, col.r, col.g, col.b, col.a);
   setPixel(xc+x, yc-y, col.r, col.g, col.b, col.a);
@@ -305,13 +317,13 @@ void setCirclePixel(uint32_t xc, uint32_t yc, uint32_t x, uint32_t y, Colour col
   setPixel(xc-y, yc+x, col.r, col.g, col.b, col.a);
   setPixel(xc+y, yc-x, col.r, col.g, col.b, col.a);
   setPixel(xc-y, yc-x, col.r, col.g, col.b, col.a);
-
+  }
 }
 
-void BresCircle(uint32_t xc, uint32_t yc, uint32_t r, Colour col) {
+void BresCircle(uint32_t xc, uint32_t yc, uint32_t r, Colour col, int fill) {
   int x = 0, y = r;
   int d = 3 - 2 * r;
-  setCirclePixel(xc, yc, x, y, col);
+  setCirclePixel(xc, yc, x, y, col, fill);
 
   while (y >= x) {
     // for each pixel we will
@@ -329,7 +341,7 @@ void BresCircle(uint32_t xc, uint32_t yc, uint32_t r, Colour col) {
     }
     else
       d = d + 4 * x + 6;
-    setCirclePixel(xc, yc, x, y, col);
+    setCirclePixel(xc, yc, x, y, col, fill);
   }
 }
 
