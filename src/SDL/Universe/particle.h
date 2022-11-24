@@ -5,6 +5,9 @@
 
 typedef struct {
     double mass;
+    Colour col;
+    double collision_radius;
+
     gsl_vector* position;
     gsl_vector* velocity;
     gsl_vector* acceleration;
@@ -24,12 +27,18 @@ Particle* new2dParticle(double mass,
     double vy,
     double ax,
     double ay);
-    
+
 void destroyParticle(Particle* p);
 
-void drawParticle(Particle* p, Colour col);
+void drawParticle(Particle* p);
 
 void updateParticle(Particle* p);
 
-// gsl_vector* direction(Particle* p);
+void printParticle(Particle* p);
+
+gsl_vector* direction(Particle* p);
+
+double speed(Particle* p);
+
+gsl_vector* momentum(Particle* p);
 // Copy .net6 to slavesvc+change config vcoredb and backuplocation and nlogconfig to slavelogs

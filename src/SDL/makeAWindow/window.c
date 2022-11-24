@@ -3,6 +3,8 @@
 
 // #include "draw.h"
 #include "../Universe/system.h"
+#include<unistd.h>
+
 // #define HEAP_COLOURS 0
 // ^ Use -D HEAP_COLOURS to run with pixel values stored on the heap instead of stack.
 // ^ If you choose to do this, prepare for a significant drop in fps.
@@ -60,10 +62,29 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
         SCREEN_RECT.h = strtol(argv[2], &p, 10);
     }
 
-    System* s = newSystem(1,SCREEN_RECT.w-1, 1, SCREEN_RECT.h-1);
-    addParticleToSystem(s, new2dParticle(2, SCREEN_RECT.w/2, SCREEN_RECT.h/2, 0, 0.2, 0, 0));
-    addParticleToSystem(s, new2dParticle(2, SCREEN_RECT.w/2+40, SCREEN_RECT.h/2, 0, -0.2, 0, 0));
+    // System* s = newSystem(10,SCREEN_RECT.w-10, 10, SCREEN_RECT.h-10);
+    // System* s = InertialTwoBodySystem(10,SCREEN_RECT.w-10, 10, SCREEN_RECT.h-10);
+    System* s = rotatingTwoBodySystem(10,SCREEN_RECT.w-10, 10, SCREEN_RECT.h-10);
+
+    // for (size_t i = 10; i < SCREEN_RECT.h-10; i+=150)
+    // {
+    //     for (size_t j = 10; j < SCREEN_RECT.w-10; j+=150)
+    //     {
+    //         addParticleToSystem(s, new2dParticle(20, j, i, 0, 0.0, 0, 0));
+    //     }
+        
+    // }
     
+    // for (size_t i = 0; i < 15; i++)
+    // {
+    //     addParticleToSystem(s, new2dParticle(20, rand() % s->bounds[0][1], rand() % s->bounds[1][1], 0, 0.0, 0, 0));
+    // }
+    
+    // addParticleToSystem(s, new2dParticle(20, SCREEN_RECT.w/2-100, SCREEN_RECT.h/2, 0, 0.0, 0, 0));
+    // // addParticleToSystem(s, new2dParticle(1, SCREEN_RECT.w/2+0, SCREEN_RECT.h/2, 0, 0.0, 0, 0));
+    // addParticleToSystem(s, new2dParticle(50, SCREEN_RECT.w/2+100, SCREEN_RECT.h/2, 0, -0.2, 0, 0));
+
+
     SDL_Window   *window   = SDL_CreateWindow("SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_RECT.w, SCREEN_RECT.h, SDL_WINDOW_SHOWN);
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_Texture  *texture  = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, SCREEN_RECT.w, SCREEN_RECT.h);
@@ -104,8 +125,11 @@ int openWindowAndRenderStuff(int argc, char *argv[]) {
 
         // 2.2 Write to texture
         // drawSomething(frame);
+        printf("START OF FRAME %d\n\n", frame);
         drawSystem(s);
         updateSystemState(s);
+        printf("END OF FRAME %d\n\n", frame);
+        // sleep(1);
         // BresCircle(320, 240, 100, newColour(255,255,255,255), 1);
 
         uint32_t endTicks = SDL_GetTicks();

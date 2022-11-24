@@ -8,9 +8,13 @@ Particle* newParticle(
     {
     Particle* p = malloc(sizeof(Particle));
     p->mass = mass;
+    p->col = newRandomColour();
     p->position = position;
     p->velocity = velocity;
     p->acceleration = acceleration;
+
+    printf("NEW PARTICLE CREATED W. INITIAL CONDITIONS:\n");
+    printParticle(p);
     return p;
 }
 
@@ -46,17 +50,38 @@ void destroyParticle(Particle* p) {
     // printf("particle freed\n");
 }
 
-void drawParticle(Particle* p, Colour col) {
-    BresCircle(gsl_vector_get(p->position, 0), gsl_vector_get(p->position, 1), 6, col, 1);
+void drawParticle(Particle* p) {
+    printParticle(p);
+    BresCircle(gsl_vector_get(p->position, 0), gsl_vector_get(p->position, 1), 3, p->col, 1);
     // drawDot(gsl_vector_get(p->position, 0), gsl_vector_get(p->position, 1), col);
+    printf("PARTICLE DRAWN\n");
 }
 
 void updateParticle(Particle* p) {
+    printf("UPDATING PARTICLE\n");
     gsl_vector_add(p->position, p->velocity);
     gsl_vector_add(p->velocity, p->acceleration);
     // printf()
 }
 
-// gsl_vector* direction() {
-//     return NULL;
-// }
+void printParticle(Particle* p) {
+    printf("acceleration:\n");
+    printVector(p->acceleration);
+    printf("velocity:\n");
+    printVector(p->velocity);
+    printf("position:\n");
+    printVector(p->position);
+
+}
+
+gsl_vector* direction(Particle* p) {
+    return NULL;
+}
+
+double speed(Particle* p) {
+    return 1.0;
+}
+
+gsl_vector* momentum(Particle* p) {
+    return NULL;
+}
